@@ -1,24 +1,33 @@
 # README
+Hosted on Heroku at:
+### http://enigmatic-everglades-74988.herokuapp.com/
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+### Setup
+To clone this repository, run:
 
-* Ruby version
+`$ git clone https://github.com/jmarsto/oxford-analytics.git`
 
-* System dependencies
+cd into the repository:
 
-* Configuration
+`$ cd oxford-analytics`
 
-* Database creation
+### In action
+Run the following to install dependences:
 
-* Database initialization
+```no-highlight
+$ bundle
+$ yarn
+```
 
-* How to run the test suite
+Set up the database:
 
-* Services (job queues, cache servers, search engines, etc.)
+`$ rake db:setup`
 
-* Deployment instructions
+Start the development server:
 
-* ...
+`$ rails s`
+
+`$ yarn run start`
+
+Launch http://localhost:3000/ in the browser.
