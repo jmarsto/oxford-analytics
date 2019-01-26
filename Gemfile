@@ -58,3 +58,5 @@ gem 'valid_attribute', group: [:development, :test]
 gem 'shoulda-matchers', group: [:development, :test], require: false
 gem 'foundation-rails', '~> 5.0'
 gem 'webpacker', '~> 3.3'
+
+gem "faraday", "~> 0.15.4"
