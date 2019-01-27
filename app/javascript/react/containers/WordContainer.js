@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import WordInput from '../components/WordInput'
+import Result from '../components/Result'
 
 class WordContainer extends Component {
   constructor(props) {
@@ -18,8 +19,14 @@ class WordContainer extends Component {
 
   handleInputSubmit = (event) => {
     event.preventDefault();
-    console.log(`submit ${this.state.input}`);
+    console.log(`${this.state.input}: `);
     this.requestAnalytics(this.state.input)
+  }
+
+  fail() {
+    this.setState({
+      definition: null
+    })
   }
 
   requestAnalytics(word) {
@@ -34,12 +41,20 @@ class WordContainer extends Component {
       if (response.ok) {
         return response;
       } else {
-        console.log("ERROR");
+        this.fail()
       }
     })
     .then(response => response.json())
     .then(body => {
-      debugger
+      if (body.results[0].lexicalEntries[0].entries[0].senses[0].definitions) {
+        let definition = body.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0]
+        this.setState({
+          definition: definition,
+          input: ""
+        })
+      } else {
+        this.fail()
+      }
     })
   }
 
@@ -53,6 +68,11 @@ class WordContainer extends Component {
           handleSubmit={this.handleInputSubmit}
         >
         </WordInput>
+        <Result
+          definition={this.state.definition}
+          failure={this.state.failure}
+        >
+        </Result>
       </div>
     )
   }
