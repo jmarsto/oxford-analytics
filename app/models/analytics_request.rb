@@ -17,13 +17,11 @@ class AnalyticsRequest
       faraday.adapter  Faraday.default_adapter
     end
 
-    binding.pry
-
     api_response = conn.get do |req|
       req.headers['app_id'] = ENV["app_id"]
       req.headers['app_key'] = ENV["app_key"]
     end
 
-    api_response.body
+    api_response
   end
 end

@@ -3,7 +3,11 @@ class Api::V1::AnalyticsController < ApplicationController
 
   def show
     word = params[:id]
-    body = AnalyticsRequest.new(word).response
-    render json: body
+    response = AnalyticsRequest.new(word).response
+    if response.status === 404
+      head :bad_request
+    else
+      render json: response.body
+    end
   end
 end
