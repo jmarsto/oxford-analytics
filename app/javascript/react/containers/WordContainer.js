@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import WordInput from '../components/WordInput'
-import Result from '../components/Result'
+import ResultContainer from './ResultContainer'
 
 class WordContainer extends Component {
   constructor(props) {
@@ -68,11 +68,10 @@ class WordContainer extends Component {
           handleSubmit={this.handleInputSubmit}
         >
         </WordInput>
-        <Result
+        <ResultContainer
           definition={this.state.definition}
-          failure={this.state.failure}
         >
-        </Result>
+        </ResultContainer>
       </div>
     )
   }
