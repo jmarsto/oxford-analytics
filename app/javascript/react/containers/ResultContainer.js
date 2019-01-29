@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Result = props => {
+const ResultContainer = (props) => {
   let result;
   if (props.definition) {
-    result = props.definition
+    result = props.definition;
   }
   else {
-    result = "Please try another word."
+    result = "Please try another word.";
   }
 
   return(
@@ -16,4 +16,4 @@ const Result = props => {
   )
 }
 
-export default Result
+export default ResultContainer;
