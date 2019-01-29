@@ -1,10 +1,17 @@
 import React from 'react';
 
 const Result = props => {
+  let result;
+  if (props.definition) {
+    result = props.definition
+  }
+  else {
+    result = "Please try another word."
+  }
 
   return(
-    <div>
-      {props.definition}
+    <div className="result">
+      {result}
     </div>
   )
 }
