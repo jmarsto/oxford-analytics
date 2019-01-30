@@ -19,7 +19,6 @@ class WordContainer extends Component {
 
   handleInputSubmit = (event) => {
     event.preventDefault();
-    console.log(`${this.state.input}: `);
     this.requestAnalytics(this.state.input)
   }
 
