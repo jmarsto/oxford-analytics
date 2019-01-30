@@ -1,17 +1,17 @@
 import React from 'react';
 
 const ResultContainer = (props) => {
-  let result;
+  let definition;
   if (props.definition) {
-    result = props.definition;
+    definition = props.definition;
   }
   else {
-    result = "Please try another word.";
+    definition = "No definition.";
   }
 
   return(
     <div className="result">
-      {result}
+      {definition}
     </div>
   )
 }
