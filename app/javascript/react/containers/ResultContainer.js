@@ -15,6 +15,7 @@ const ResultContainer = (props) => {
       {definition}
       <D3Container
         definition={props.definition}
+        word={props.word}
       >
       </D3Container>
     </div>

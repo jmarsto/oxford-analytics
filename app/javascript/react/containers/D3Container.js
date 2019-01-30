@@ -5,7 +5,9 @@ const D3Container = (props) => {
 
   return(
     <div>
-      <BarGraphWithToolTips>
+      <BarGraphWithToolTips
+        key={props.word}
+      >
       </BarGraphWithToolTips>
     </div>
   )
