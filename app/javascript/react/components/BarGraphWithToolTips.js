@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const BarGraphWithToolTips = props => {
+class BarGraphWithToolTips extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
+  componentDidMount() {
   // D3 sourced from http://bl.ocks.org/Caged/6476579
   var margin = {top: 40, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
@@ -31,7 +37,7 @@ const BarGraphWithToolTips = props => {
       return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
     })
 
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("#graph").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -70,17 +76,20 @@ const BarGraphWithToolTips = props => {
         .on('mouseout', tip.hide)
 
   });
-
+debugger
   function type(d) {
     d.frequency = +d.frequency;
     return d;
   }
 
-  return(
-    <div>
+}
+  render() {
+    return(
+      <div id="graph">
 
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 export default BarGraphWithToolTips
