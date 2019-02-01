@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root 'homes#index'
 
-  Dotenv.load
-
   namespace :api do
     namespace :v1 do
       resources :analytics, only: [:show]
