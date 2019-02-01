@@ -76,7 +76,7 @@ class BarGraphWithToolTips extends Component {
         .on('mouseout', tip.hide)
 
   });
-debugger
+
   function type(d) {
     d.frequency = +d.frequency;
     return d;
