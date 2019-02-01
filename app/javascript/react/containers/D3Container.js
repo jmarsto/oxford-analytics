@@ -7,6 +7,7 @@ const D3Container = (props) => {
     graphs = (
       <BarGraphWithToolTips
         key={props.word}
+        definition={props.definition}
       >
       </BarGraphWithToolTips>
     )

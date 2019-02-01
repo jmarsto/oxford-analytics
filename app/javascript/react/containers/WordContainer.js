@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+var fs = require("fs");
+
 import WordInput from '../components/WordInput'
 import ResultContainer from './ResultContainer'
 
@@ -47,7 +49,7 @@ class WordContainer extends Component {
     .then(body => {
       if (body.results[0].lexicalEntries[0].entries[0].senses[0].definitions) {
         let definition = body.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0]
-
+        
         this.setState({
           word: word,
           definition: definition,
