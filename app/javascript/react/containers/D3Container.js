@@ -2,13 +2,20 @@ import React from 'react';
 import BarGraphWithToolTips from '../components/BarGraphWithToolTips'
 
 const D3Container = (props) => {
+  let graphs;
+  if (props.definition) {
+    graphs = (
+      <BarGraphWithToolTips
+        key={props.word}
+        definition={props.definition}
+      >
+      </BarGraphWithToolTips>
+    )
+  }
 
   return(
     <div>
-      <BarGraphWithToolTips
-        key={props.word}
-      >
-      </BarGraphWithToolTips>
+      {graphs}
     </div>
   )
 }

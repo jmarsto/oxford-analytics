@@ -3,12 +3,30 @@ import React, { Component } from 'react';
 class BarGraphWithToolTips extends Component {
   constructor(props) {
     super(props);
+
+    let letters = this.props.definition.toLowerCase().split("").filter(function(char) {
+      return char.match(/[a-z]/)
+    }).sort()
+
+    let frequencies = [];
+
+    let counts = letters.reduce( (acc, char) => (acc[char] = (acc[char] || 0 ) + 1, acc), {} );
+    Object.keys(counts).forEach(char => {
+      frequencies.push({
+        letter: char,
+        frequency: counts[char]/letters.length
+      })
+    })
+    console.log(frequencies);
+
+
     this.state = {
+      frequencies: frequencies
     };
   }
 
   componentDidMount() {
-  // D3 sourced from http://bl.ocks.org/Caged/6476579
+  // D3 sourced from http://bl.ocks.org/Caged/6476579 and modified to read from state
   var margin = {top: 40, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -45,38 +63,37 @@ class BarGraphWithToolTips extends Component {
 
   svg.call(tip);
 
-  d3.tsv("data.tsv", type, function(error, data) {
-    x.domain(data.map(function(d) { return d.letter; }));
-    y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+  let data = this.state.frequencies
 
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+  x.domain(data.map(function(d) { return d.letter; }));
+  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Frequency");
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
 
-    svg.selectAll(".bar")
-        .data(data)
-      .enter().append("rect")
-        .attr("class", "bar")
-        .attr("x", function(d) { return x(d.letter); })
-        .attr("width", x.rangeBand())
-        .attr("y", function(d) { return y(d.frequency); })
-        .attr("height", function(d) { return height - y(d.frequency); })
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide)
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Frequency");
 
-  });
-debugger
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.letter); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.frequency); })
+      .attr("height", function(d) { return height - y(d.frequency); })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
   function type(d) {
     d.frequency = +d.frequency;
     return d;
