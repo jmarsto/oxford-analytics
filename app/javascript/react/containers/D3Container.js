@@ -1,15 +1,23 @@
 import React from 'react';
 import BarGraphWithToolTips from '../components/BarGraphWithToolTips'
+import Sunburst from '../components/Sunburst'
 
 const D3Container = (props) => {
   let graphs;
   if (props.definition) {
     graphs = (
-      <BarGraphWithToolTips
-        key={props.word}
-        definition={props.definition}
-      >
-      </BarGraphWithToolTips>
+      <div>
+        <BarGraphWithToolTips
+          key={`bargraph-${props.word}`}
+          definition={props.definition}
+        >
+        </BarGraphWithToolTips>
+        <Sunburst
+          key={`sunburst-${props.word}`}
+          definition={props.definition}
+        >
+        </Sunburst>
+      </div>
     )
   }
 
