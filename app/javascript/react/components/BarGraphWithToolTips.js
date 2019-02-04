@@ -17,8 +17,6 @@ class BarGraphWithToolTips extends Component {
         frequency: counts[char]/letters.length
       })
     })
-    console.log(frequencies);
-
 
     this.state = {
       frequencies: frequencies
