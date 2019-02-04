@@ -1,13 +1,10 @@
-#sunburst {
-  body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    background-color: #fff;
-    width: 960px;
-    height: 700px;
-    margin-top: 10px;
-  }
+.sunburst {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  width: 960px;
+  height: 700px;
+  margin-top: 10px;
 
   #main {
     float: left;
@@ -31,6 +28,7 @@
   #sequence text, #legend text {
     font-weight: 600;
     fill: #fff;
+    font-size: 14px;
   }
 
   #chart {
@@ -44,7 +42,7 @@
   #explanation {
     position: absolute;
     top: 260px;
-    left: 305px;
+    left: 360px;
     width: 140px;
     text-align: center;
     color: #666;

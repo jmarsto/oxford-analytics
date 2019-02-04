@@ -3,12 +3,23 @@ import React, { Component } from 'react';
 class Sunburst extends Component {
   constructor(props) {
     super(props);
+    let words = props.definition.toLowerCase().replace(/'/,'').replace(/[^a-z]/g,' ').split(" ")
+
+    words = words.filter(word => {
+      return word != ""
+    })
+
+    let sequences = []
+
+    words.forEach(word => {
+      let letters = word.split("").join('-')
+      sequences.push([letters, 1])
+    })
+
     this.state = {
-      sequences: [
-        ["a-b-c-d", 20],
-        ["b-a-c-d", 10]
-      ]
+      sequences: sequences
     };
+
   }
 
   componentDidMount() {
@@ -26,12 +37,32 @@ class Sunburst extends Component {
 
     // Mapping of step names to colors.
     var colors = {
-      "a": "#5687d1",
-      "b": "#7b615c",
-      "c": "#de783b",
-      "d": "#6ab975",
-      "e": "#a173d1",
-      "f": "#bbbbbb"
+      "a": "#c70000",
+      "b": "#c73500",
+      "c": "#c76a00",
+      "d": "#c79200",
+      "e": "#c7b600",
+      "f": "#a9c700",
+      "g": "#7ec700",
+      "h": "#70c403",
+      "i": "#63ba0d",
+      "j": "#41940a",
+      "k": "#26ea10",
+      "l": "#3bf196",
+      "m": "#00c7c7",
+      "n": "#0000c7",
+      "o": "#3200c7",
+      "p": "#4c00c7",
+      "q": "#6000c7",
+      "r": "#7400c7",
+      "s": "#8b00c7",
+      "t": "#9f00c7",
+      "u": "#8f0062",
+      "v": "#ad0076",
+      "w": "#db0080",
+      "x": "#c70053",
+      "y": "#f50045",
+      "z": "#c70003",
     };
 
     // Total size of all segments; we set this later, after loading the data.
@@ -278,32 +309,45 @@ class Sunburst extends Component {
       for (var i = 0; i < sequences.length; i++) {
         var sequence = sequences[i][0];
         var size = +sequences[i][1];
+
         var parts = sequence.split("-");
         var currentNode = root;
+        if (currentNode.children > 6) {
+          var childKeep = currentNode.children
+        }
         for (var j = 0; j < parts.length; j++) {
           var children = currentNode["children"];
+
           var nodeName = parts[j];
           var childNode;
           if (j + 1 < parts.length) {
-       // Not yet at the end of the sequence; move down the tree.
-     	var foundChild = false;
-     	for (var k = 0; k < children.length; k++) {
-     	  if (children[k]["name"] == nodeName) {
-     	    childNode = children[k];
-     	    foundChild = true;
-     	    break;
-     	  }
-     	}
-      // If we don't already have a child node for this branch, create it.
-     	if (!foundChild) {
-     	  childNode = {"name": nodeName, "children": []};
-     	  children.push(childNode);
-     	}
-     	currentNode = childNode;
-          } else {
-     	// Reached the end of the sequence; create a leaf node.
-     	childNode = {"name": nodeName, "size": size};
-     	children.push(childNode);
+             // Not yet at the end of the sequence; move down the tree.
+           	var foundChild = false;
+            if (!children) {
+              children = childKeep || []
+            }
+           	for (var k = 0; k < children.length; k++) {
+           	  if (children[k]["name"] == nodeName) {
+           	    childNode = children[k];
+           	    foundChild = true;
+           	    break;
+           	  }
+           	}
+            // If we don't already have a child node for this branch, create it.
+           	if (!foundChild) {
+           	  childNode = {"name": nodeName, "children": []};
+           	  children.push(childNode);
+
+           	}
+           	currentNode = childNode;
+                } else {
+           	// Reached the end of the sequence; create a leaf node.
+           	childNode = {"name": nodeName, "size": size};
+
+            if (!children) {
+              children = childKeep || []
+            }
+           	children.push(childNode);
           }
         }
       }
@@ -314,13 +358,13 @@ class Sunburst extends Component {
   render() {
     return(
       <div className="graph">
-        <div id="sunburst">
+        <div id="sunburst" className="sunburst">
           <div id="main">
             <div id="sequence"></div>
             <div id="chart">
               <div id="explanation" style={{visibility: "hidden"}}>
                 <span id="percentage"></span><br/>
-                of visits begin with this sequence of pages
+                of words begin with this sequence of letters
               </div>
             </div>
           </div>
@@ -331,6 +375,7 @@ class Sunburst extends Component {
             <div id="legend" style={{visibility: "hidden"}}></div>
           </div>
         </div>
+        <h3>Frequencies of Sequences of Letters</h3>
       </div>
     )
   }
