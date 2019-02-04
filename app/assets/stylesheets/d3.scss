@@ -1,5 +1,5 @@
 // sourced from http://bl.ocks.org/Caged/6476579
-#graph {
+#bar-graph {
   font: 10px sans-serif;
 }
 
@@ -29,4 +29,8 @@
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
   border-radius: 2px;
+}
+
+.graph {
+  margin-top: 100px;
 }

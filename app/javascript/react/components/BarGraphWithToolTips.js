@@ -55,7 +55,7 @@ class BarGraphWithToolTips extends Component {
       return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
     })
 
-  var svg = d3.select("#graph").append("svg")
+  var svg = d3.select("#bar-graph").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -102,8 +102,10 @@ class BarGraphWithToolTips extends Component {
 }
   render() {
     return(
-      <div id="graph">
-
+      <div className="graph">
+        <div id="bar-graph">
+        </div>
+        <h3>Frequencies of Characters in Definition</h3>
       </div>
     )
   }
