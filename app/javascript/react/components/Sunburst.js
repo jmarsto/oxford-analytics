@@ -11,9 +11,21 @@ class Sunburst extends Component {
 
     let sequences = []
 
-    words.forEach(word => {
-      let letters = word.split("").join('-')
-      sequences.push([letters, 1])
+    words.forEach(currentWord => {
+      let instanceCount = 0
+      words.forEach(word => {
+        if (word == currentWord) {
+          instanceCount++
+        }
+      })
+
+      let letters = currentWord.split("").join('-')
+      sequences.push([letters, instanceCount])
+
+      words = words.filter(word => {
+        return word != currentWord
+      })
+
     })
 
     this.state = {
